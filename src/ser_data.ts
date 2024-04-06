@@ -39,7 +39,7 @@ export async function seriallize_test_data(): Promise<String> {
 
     // the target and starting programs address
     const PROGRAM_ID = web3.PublicKey.default;
-    
+
     // creating a instruction with the encoded data, the key sets and the target and starting program id.
     const instruction = new web3.TransactionInstruction({
       keys: [
@@ -65,9 +65,6 @@ export async function seriallize_test_data(): Promise<String> {
     
     transaction.add(instruction)
     
-    web3.sendAndConfirmTransaction(connection, transaction, [player]).then((txid) => {
-      console.log(`Transaction submitted: https://explorer.solana.com/tx/${txid}?cluster=devnet`)
-    })
-    return "";
-
+    return await web3.sendAndConfirmTransaction(connection, transaction, [player])
+    
 }
