@@ -228,7 +228,7 @@ export async function full_spl_ops() {
       aliceTokenAccount.address,
       bobTokenAccount.address,
       delegate,
-      50 * 10 ** mintInfo.decimals
+      30 * 10 ** mintInfo.decimals
     )
     
     alice_token_account_info = await token.getAccount(connection, aliceTokenAccount.address);
@@ -236,23 +236,30 @@ export async function full_spl_ops() {
 
 
 
-    console.log("transferred 50 tokens from alice to bob, alice balance : ", bob_token_account_info.amount.toString(), "bob balance: ", bob_token_account_info.amount.toString());
+    console.log("transferred 50 tokens from alice to bob, alice balance : ", alice_token_account_info.amount.toString(), "bob balance: ", bob_token_account_info.amount.toString());
 
     // await revokeDelegate(
     //   connection,
-    //   user,
-    //   tokenAccount.address,
-    //   user.publicKey,
+    //   alice,
+    //   aliceTokenAccount.address,
+    //   bob.publicKey,
     // )
     
     
-    // await burnTokens(
-    //   connection, 
-    //   user, 
-    //   tokenAccount.address, 
-    //   mint, user, 
-    //   25 * 10 ** mintInfo.decimals
-    // )
+    await burnTokens(
+      connection, 
+      bob, 
+      aliceTokenAccount.address, 
+      mint, bob, 
+      20 * 10 ** mintInfo.decimals
+    )
     
+    alice_token_account_info = await token.getAccount(connection, aliceTokenAccount.address);
+    bob_token_account_info = await token.getAccount(connection, bobTokenAccount.address);
+
+
+
+    console.log("bob burned 20 tokens, new balances:", alice_token_account_info.amount.toString(), "bob balance: ", bob_token_account_info.amount.toString());
+
       
 }
