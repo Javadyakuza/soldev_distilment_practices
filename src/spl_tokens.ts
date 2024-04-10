@@ -238,6 +238,8 @@ export async function full_spl_ops() {
 
     console.log("transferred 50 tokens from alice to bob, alice balance : ", alice_token_account_info.amount.toString(), "bob balance: ", bob_token_account_info.amount.toString());
 
+    
+    // if we uncomment the following lines the burn tokens part will not work
     // await revokeDelegate(
     //   connection,
     //   alice,
@@ -251,7 +253,7 @@ export async function full_spl_ops() {
       bob, 
       aliceTokenAccount.address, 
       mint, bob, 
-      20 * 10 ** mintInfo.decimals
+      20 * 10 ** mintInfo.decimals // if we increase the burn amount the exemption will accrue, because from the approved delegate amount is only 20 remained. 
     )
     
     alice_token_account_info = await token.getAccount(connection, aliceTokenAccount.address);
